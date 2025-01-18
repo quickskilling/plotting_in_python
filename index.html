@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Introduction to Plotting in Python</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style type="text/css">
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+        color:darkslategrey;
+      }
+      h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .font60 {
+        font-size: 60px;
+      }
+      .font40 {
+        font-size: 40px;
+      }
+      .font30 {
+        font-size: 30px;
+      }
+      .font20 {
+        font-size: 20px;
+      }
+      .remark-code, .remark-inline-code {
+         font-family: 'Ubuntu Mono';
+         font-size: 20px;
+         }
+            /* Two-column layout */
+      .left-column {
+        color: #000;
+        width: 49%;
+        float: left;
+      }
+      .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 49%;
+        float: right;
+        padding-top: 2em;
+      }
+      .right-column h2:last-of-type, .right-column h3:last-child {
+          color: #000;
+        }
+      .inverse {
+        background: #272822;
+        color: #e4e4e1;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2, .inverse h3 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      .lightfont {color:rgb(129, 126, 126);
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle, font30
+
+# Introduction to Plotting in Python (Plotly and Lets Plot)
+
+J. Hathaway - Data Science Program Chair at BYU-I
+
+---
+class: font30
+
+# Disclaimers
+
+I am focusing on modern tools for data science in Python
+</br></br>
+_Polars over Pandas and Plotly/Lets-Plot over Matplotlib._
+</br></br>
+These modern tools reflect the best of
+
+- declarative programming (task focused programming)
+- clean grammar (language abstraction that allows intuitive but complex actions)
+- industry respect (these tools are very popular for their quality and have rapid growth)
+
+???
+
+- Plotly is probably close to the industry standard. However, Matplotlib is the default plotting environment for many data science packages.
+
+---
+class: font40
+# Agenda
+
+Exemplify the data exploration through visualization
+
+1. Introduction and Set-up (10 minutes)
+2. Plotting in principles (20 minutes)
+3. Break (5 minutes)
+4. Data visualization in Python (30 minutes)
+
+---
+class: font40
+# Checking our installation
+
+1. [Python Installed](https://www.python.org/downloads/)
+2. [VS Code Installed](https://code.visualstudio.com/download)
+3. [Python VS Code Extension Installed](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+4. Python packages installed.
+      ```bash
+      pip install polars plotly pyarrow lets-plot altair
+      ```
+      
+      ```bash
+      pip3 install polars plotly pyarrow lets-plot altair
+      ```
+
+---
+class: font20
+# Introduction to Data Visualization
+
+__The world is full of [visual communication tools](https://datavizcatalogue.com/)__
+
+
+> Our eyes are drawn to [colors and patterns](https://www.tableau.com/learn/whitepapers/tableau-visual-guidebook). We can quickly identify red from blue, and squares from circles. Our culture is visual, including everything from art and advertisements to TV and movies. Data visualization is another form of visual art that grabs our interest and keeps our eyes on the message.
+
+> [Tableau Reference](https://www.tableau.com/learn/articles/data-visualization)
+
+.left-column[
+  </br>
+### Advantages of data visualization:
+
+- Easily sharing information.
+- Interactively explore opportunities.
+- Visualize patterns and relationships.
+]
+
+.right-column[
+### Disadvantages:
+
+- Biased or inaccurate information.
+- Correlation doesn’t always mean causation.
+- Core messages can get lost in translation.
+]
+
+---
+class: font20
+# John Rauser on How Humans See Data
+
+<iframe width="860" height="415" src="https://www.youtube.com/embed/fSgEeI2Xpdc?si=fhdI2uD6zOgvXSaX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+- [A nice website that aligns with John Rauser](https://socviz.co/lookatdata.html)
+
+---
+class: font20
+# Stephen Few on [Effectively Communicating Numbers](https://perceptualedge.com/articles/Whitepapers/Communicating_Numbers.pdf)
+
+> The ability to display data graphically is not intuitive; it requires a set of visual design skills that must be learned. Based on the recent book, Show Me the Numbers: Designing Tables and Graphs to Enlighten, this white paper will introduce the best practices in graph design. No information is more important to a business than quantitative information – the numbers that measure performance, identify opportunities, and forecast the future. Quantitative information is often presented in the form of graphs. Unfortunately, most graphs used in business today are poorly designed – often to the point of misinformation. Why? Because almost no one who produces them, including specialists such as financial analysts and other report developers, have been trained in effective graph design. 
+
+[Link to Whitepaper](https://perceptualedge.com/articles/Whitepapers/Communicating_Numbers.pdf)
+
+---
+class: font30
+# Albert Cairo on [The Truthful Art](https://ptgmedia.pearsoncmg.com/images/9780321934079/samplepages/9780321934079.pdf)
+
+> Interpreting data and visualizations is to a great extent based on applying simple rules of thumb such as “compared to what/who/where/when,” I stressed those strategies first because in the past two decades I’ve seen that many designers and journalists are terrified by science and math for no good reason.
+
+
+---
+class: font20
+# Edward Tufte on Visualization
+
+> Graphical excellence is that which gives to the viewer the greatest number of ideas in the shortest time with the least ink in the smallest space.
+
+![](https://www.edwardtufte.com/wp-content/uploads/2023/07/edwar-tufte-course-books-768x453.png)
+
+---
+class: font20
+# Elijah Meeks on [What Charts Do](https://medium.com/nightingale/what-charts-do-48ed96f70a74)
+
+> The most important thing about a chart is not its aesthetics, the technology used to create it, the kind of data visualization layout or even the data it represents. The most important thing about a chart is its impact. Impact is what a chart does.
+
+---
+class: font20
+# Amelia McNamara on [How Spatial Polygons Shape our World](https://perceptualedge.com/articles/Whitepapers/Communicating_Numbers.pdf)
+
+<iframe width="860" height="415" src="https://www.youtube.com/embed/wn5larsRHro?si=Q8PgglZHB3tP918i" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+---
+class: font20
+# Some great visualization reference links
+
+- [80 types of charts & graphs for data visualization (with examples)](https://www.datylon.com/blog/types-of-charts-graphs-examples-data-visualization)
+- [charts and graphs - a complete guide — storytelling with data](https://www.storytellingwithdata.com/chart-guide)
+- [The Data Visualisation Catalogue](https://datavizcatalogue.com/)
+- [Gallery of Examples With Lets-Plot](https://lets-plot.org/python/pages/gallery.html)
+- [Lets-Plot for Python: Plotting Library Based on Grammar of Graphics](https://lets-plot.org/python/index.html#explore-your-data-with-lets-plot)
+- [Plotly express in Python](https://plotly.com/python/plotly-express/)
+- [Example Gallery — Vega-Altair 5.5.0 documentation](https://altair-viz.github.io/gallery/index.html)
+
+---
+class: font20
+# Introduction to Plotly and Lets-Plot
+
+
+.left-column[
+  </br>
+### Plotly:
+
+> Plotly Express is a built-in part of the plotly library, which makes interactive, publication-quality graphs.
+
+```python
+import plotly.express as px
+```
+
+]
+
+.right-column[
+### Lets-Plot:
+
+> Lets-Plot is a multiplatform plotting library based on the Grammar of Graphics. We provide ggplot2-like plotting API for Python
+
+
+```python
+from lets_plot import *
+LetsPlot.setup_html()
+```
+
+]
+
+
+---
+class: font20
+# Introduction to __Plotly__ for Data Visualization
+
+The Plotly Python package leverages the plotly.js JavaScript library to enables Python users to create beautiful interactive web-based visualizations. Plotly.js is built on top of d3.js and stack.gl, Plotly.js is a high-level, declarative charting library. plotly.js ships with over 40 chart types, including 3D charts, statistical graphs, and SVG maps.
+
+![:scale 50%](https://raw.githubusercontent.com/hathawayj/ghana_datascience/master/img/plotly_charts.png)
+
+
+---
+class: font30
+# Plotly programming
+
+Now let's practice using [Plotly](https://plotly.com/python/plotly-express/) with our installation of Python
+
+1. Plotly practice (explore_plotly.py)
+
+```python
+import plotly.express as px
+df = px.data.iris() # iris is a pandas DataFrame
+fig = px.scatter(df, x="sepal_width", y="sepal_length")
+fig.show()
+```
+
+```python
+import plotly.express as px
+df = px.data.gapminder().query("continent == 'Oceania'")
+fig = px.line(df, x='year', y='lifeExp', color='country', markers=True)
+fig.show()
+```
+
+---
+class: font30
+# Lets-Plot programming
+
+Now let's practice using [Lets-Plot](https://lets-plot.org/) with our installation of Python
+
+2. Lets Plot practice (explore_letsplot.py)
+
+```python
+import numpy as np
+from lets_plot import *
+LetsPlot.setup_html()
+
+np.random.seed(12)
+data = dict(
+    cond=np.repeat(['A', 'B'], 200),
+    rating=np.concatenate((np.random.normal(0, 1, 200), np.random.normal(1, 1.5, 200)))
+)
+
+ggplot(data, aes(x='rating', fill='cond')) + \
+  ggsize(700, 300) + \
+  geom_density(color='dark_green', alpha=.7) + \
+  scale_fill_brewer(type='seq') + \
+  theme(panel_grid_major_x='blank')
+```
+
+---
+class: font30
+# Now let's try to explore some more complex data
+
+The `cstore` folder has data for one C-store for 1 week. The data is more complex than the previous tables.
+
+- Which shopper's spent the most money, had the most transactions, bot the most soda?
+- How do days of the week compare for the ratio of candy to packaged beverage sales?
+- How do the hours of 7 am to 10 am compare for weekdays and weekends?
+
+
+---
+class: font40
+# Next Steps
+
+1. Program your day (incorporate programming into your daily work)
+2. Display your talent -- [Github.com](https://github.com/hathawayj)
+3. Offer your services -- Find small projects to do for friends and contacts
+4. Apply for jobs -- [LinkedIn](https://www.linkedin.com/jobs/search/?currentJobId=3636093741&geoId=104353902&keywords=data%20science&location=Greater%20Accra%20Region%2C%20Ghana&originalSubdomain=gh&refresh=true)
+
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js" type="text/javascript">
+    </script>
+    <script type="text/javascript">
+      remark.macros.upper = function () {
+        // `this` is the value in the parenthesis, or undefined if left out
+        return this.toUpperCase();
+      };
+
+      remark.macros.random = function () {
+        // params are passed as function arguments: ["one", "of", "these", "words"]
+        var i = Math.floor(Math.random() * arguments.length);
+        return arguments[i];
+      };
+
+      remark.macros.scale = function (percentage) {
+        var url = this;
+        return '<img src="' + url + '" style="width: ' + percentage + '" />';
+      };
+
+      var slideshow = remark.create({
+        ratio: "16:9",
+        highlightLanguage: 'javascript',
+        highlightStyle: 'monokai'
+       });
+    </script>
+  </body>
+</html>
