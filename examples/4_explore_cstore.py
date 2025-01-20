@@ -20,10 +20,26 @@ gtin = pl.read_parquet("../cstore/cstore_master_ctin.parquet")
 
 
 # %%
-# Which shopper's spent the most money, had the most transactions, bot the most soda?
+# Which shoppers had the most transactions (shoppers)
+
 
 # %%
-# How do days of the week compare for the ratio of candy to packaged beverage sales?
+# spent the most money (payments)
+# null shoppers are removed
+
 
 # %%
-# How do the hours of 7 am to 10 am compare for weekdays and weekends?
+# bought the most bottles/cans of soda? (items, shoppers)
+
+
+# %%
+# How do days of the week compare for the total transactions and total sales? (daily)
+# monday = 1 and sunday = 7
+
+
+
+# %%
+# How do the hours of 7 am to 11 am compare for weekdays and weekends when looking at total transactions? (sets)
+
+
+
