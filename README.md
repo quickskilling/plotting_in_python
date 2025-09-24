@@ -9,3 +9,9 @@ Exemplify the data exploration through visualization
 3. Break (5 minutes)
 4. Data visualization in Python (30 minutes)
 
+__Notes on Marimo__  
+
+We need to install the [marimo](https://marimo.io) package in Python using `pip install "marimo[recommended]"` in the Terminal or `!pip install "marimo[recommended]"` in your Python interactive window in VS code.
+
+In your terminal run `marimo edit` or `marimimo edit [path_to_py_file]` and marimo will start running. This will give you a space to complete your project.
+
